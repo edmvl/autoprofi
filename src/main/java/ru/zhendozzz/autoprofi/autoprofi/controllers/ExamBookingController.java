@@ -18,8 +18,8 @@ import ru.zhendozzz.autoprofi.autoprofi.mapper.ExamBookingMapper;
 import ru.zhendozzz.autoprofi.autoprofi.service.ExamBookingService;
 
 @RestController
-@RequestMapping("/exambooking")
-@Tag(name = "/exambooking", description = "контроллер для инструкторов")
+@RequestMapping("/api/v1/exambooking")
+@Tag(name = "/api/v1/exambooking", description = "контроллер для инструкторов")
 public class ExamBookingController {
     private final ExamBookingService ExamBookingService;
     private final ExamBookingMapper ExamBookingMapper;

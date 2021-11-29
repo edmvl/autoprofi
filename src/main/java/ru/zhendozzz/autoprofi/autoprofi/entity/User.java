@@ -1,6 +1,8 @@
 package ru.zhendozzz.autoprofi.autoprofi.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,20 +18,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "student")
-public class Student {
-
+@Table(name = "users")
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String firstName;
+    private String login;
 
-    private String secondName;
+    private String password;
 
-    private String middleName;
-
-    private String birthday;
-
-    private Long userId;
+    @Enumerated(value = EnumType.STRING)
+    private Role role;
 }

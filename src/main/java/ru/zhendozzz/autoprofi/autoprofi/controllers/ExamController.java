@@ -19,8 +19,8 @@ import ru.zhendozzz.autoprofi.autoprofi.service.ExamService;
 
 
 @RestController
-@RequestMapping("/exam")
-@Tag(name = "/exam", description = "контроллер для инструкторов")
+@RequestMapping("/api/v1/exam")
+@Tag(name = "/api/v1/exam", description = "контроллер для инструкторов")
 public class ExamController {
     private final ExamService examService;
     private final ExamMapper examMapper;

@@ -18,8 +18,8 @@ import ru.zhendozzz.autoprofi.autoprofi.mapper.StudentMapper;
 import ru.zhendozzz.autoprofi.autoprofi.service.StudentService;
 
 @RestController
-@RequestMapping("/student")
-@Tag(name = "/student", description = "контроллер для обучающихся")
+@RequestMapping("/api/v1/student")
+@Tag(name = "/api/v1/student", description = "контроллер для обучающихся")
 public class StudentController {
     private final StudentService studentService;
     private final StudentMapper studentMapper;

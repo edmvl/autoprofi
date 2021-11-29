@@ -29,4 +29,6 @@ public class Instructor {
     private String middleName;
 
     private String birthday;
+
+    private Long userId;
 }

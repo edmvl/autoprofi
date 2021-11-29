@@ -22,8 +22,8 @@ import ru.zhendozzz.autoprofi.autoprofi.service.InstructorService;
 import ru.zhendozzz.autoprofi.autoprofi.service.StudentService;
 
 @RestController
-@RequestMapping("/instructor")
-@Tag(name = "/instructor", description = "контроллер для инструкторов")
+@RequestMapping("/api/v1/instructor")
+@Tag(name = "/api/v1/instructor", description = "контроллер для инструкторов")
 public class InstructorController {
     private final InstructorService instructorService;
     private final InstructorMapper instructorMapper;
