@@ -7,12 +7,24 @@ import java.util.stream.Stream;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import static ru.zhendozzz.autoprofi.autoprofi.entity.Permission.*;
+
 public enum Role {
-    USER(Stream.of(Permission.EXAM_READ)
+    USER(Stream.of(
+        EXAM_READ,
+        EXAM_BOOKING_READ
+    )
         .collect(Collectors.toCollection(HashSet::new))),
-    STUDENT(Stream.of(Permission.EXAM_READ, Permission.EXAM_WRITE)
+    STUDENT(Stream.of(
+        EXAM_READ,
+        EXAM_BOOKING_READ,
+        EXAM_BOOKING_BOOK
+    )
         .collect(Collectors.toCollection(HashSet::new))),
-    INSTRUCTOR(Stream.of(Permission.EXAM_READ, Permission.EXAM_WRITE, Permission.EXAM_CREATE)
+    INSTRUCTOR(Stream.of(
+        EXAM_READ,
+        EXAM_BOOKING_READ
+    )
         .collect(Collectors.toCollection(HashSet::new)));
 
     private final Set<Permission> permissions;
