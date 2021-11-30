@@ -41,7 +41,7 @@ public class ExamController {
 
     @Operation(summary = "Добавление экзамена")
     @PostMapping("/new")
-    @PreAuthorize("hasAnyAuthority('exam:write')")
+    @PreAuthorize("hasAnyAuthority('exam:create')")
     public ResponseEntity<Void> put(@RequestBody ExamDto createDto) {
         examService.create(examMapper.createProjectEntity(createDto));
         return new ResponseEntity<>(HttpStatus.CREATED);

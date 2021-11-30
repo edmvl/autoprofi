@@ -23,6 +23,7 @@ public enum Role {
         .collect(Collectors.toCollection(HashSet::new))),
     INSTRUCTOR(Stream.of(
         EXAM_READ,
+        EXAM_CREATE,
         EXAM_BOOKING_READ
     )
         .collect(Collectors.toCollection(HashSet::new)));
