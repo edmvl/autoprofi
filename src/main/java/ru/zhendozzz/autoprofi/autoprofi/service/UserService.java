@@ -2,6 +2,7 @@ package ru.zhendozzz.autoprofi.autoprofi.service;
 
 import java.util.Optional;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.zhendozzz.autoprofi.autoprofi.entity.User;
 import ru.zhendozzz.autoprofi.autoprofi.exceptions.EntityNotFoundException;
@@ -16,6 +17,8 @@ public class UserService {
     }
 
     public void create(User user) {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(12);
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userDao.save(user);
     }
 
