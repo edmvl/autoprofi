@@ -4,8 +4,10 @@ import java.util.Optional;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.zhendozzz.autoprofi.autoprofi.dto.UserDto;
 import ru.zhendozzz.autoprofi.autoprofi.entity.User;
 import ru.zhendozzz.autoprofi.autoprofi.exceptions.EntityNotFoundException;
+import ru.zhendozzz.autoprofi.autoprofi.mapper.UserMapper;
 import ru.zhendozzz.autoprofi.autoprofi.repository.UserDao;
 
 @Service
@@ -16,10 +18,10 @@ public class UserService {
         this.userDao = studentDao;
     }
 
-    public void create(User user) {
+    public void create(UserDto user) {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(12);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        userDao.save(user);
+        userDao.save(UserMapper.createUserEntity(user));
     }
 
     public User findById(Long id) {
@@ -27,7 +29,7 @@ public class UserService {
         if (byId.isPresent()) {
             return byId.get();
         }
-        throw new EntityNotFoundException("Student is not found by id");
+        throw new EntityNotFoundException("User is not found by id");
     }
 
     public void delete(Long id) {
@@ -35,7 +37,7 @@ public class UserService {
         if (byId.isPresent()) {
             userDao.delete(byId.get());
         } else {
-            throw new EntityNotFoundException("Project is not found by id");
+            throw new EntityNotFoundException("User is not found by id");
         }
     }
 }

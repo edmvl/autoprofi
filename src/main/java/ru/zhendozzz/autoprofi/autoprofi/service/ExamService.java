@@ -1,13 +1,15 @@
 package ru.zhendozzz.autoprofi.autoprofi.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import ru.zhendozzz.autoprofi.autoprofi.dto.ExamDto;
 import ru.zhendozzz.autoprofi.autoprofi.entity.Exam;
-import ru.zhendozzz.autoprofi.autoprofi.entity.Instructor;
 import ru.zhendozzz.autoprofi.autoprofi.exceptions.EntityNotFoundException;
+import ru.zhendozzz.autoprofi.autoprofi.mapper.ExamMapper;
 import ru.zhendozzz.autoprofi.autoprofi.repository.ExamDao;
-import ru.zhendozzz.autoprofi.autoprofi.repository.InstructorDao;
+import ru.zhendozzz.autoprofi.autoprofi.repository.projection.ExamInfo;
 
 @Service
 public class ExamService {
@@ -18,15 +20,19 @@ public class ExamService {
         this.examDao = examDao;
     }
 
-    public Exam findById(Long id) {
+    public ExamDto findById(Long id) {
         Optional<Exam> byId = examDao.findById(id);
         if (byId.isPresent()) {
-            return byId.get();
+            return ExamMapper.createExamGetResponseDto(byId.get());
         }
         throw new EntityNotFoundException("Exam is not found by id");
     }
 
-    public void create(Exam exam) {
-        examDao.save(exam);
+    public List<ExamInfo> findAll(Long myid) {
+        return examDao.findAllWithBookings(myid);
+    }
+
+    public void create(ExamDto exam) {
+        examDao.save(ExamMapper.createExamEntity(exam));
     }
 }

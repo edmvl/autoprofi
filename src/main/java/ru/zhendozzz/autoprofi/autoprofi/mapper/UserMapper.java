@@ -6,7 +6,7 @@ import ru.zhendozzz.autoprofi.autoprofi.entity.User;
 
 @Component
 public class UserMapper {
-    public UserDto createUserGetResponseDto(User byId) {
+    public static UserDto createUserGetResponseDto(User byId) {
         return UserDto.builder()
             .id(byId.getId())
             .login(byId.getLogin())
@@ -15,7 +15,7 @@ public class UserMapper {
             .build();
     }
 
-    public User createUserEntity(UserDto createDto) {
+    public static User createUserEntity(UserDto createDto) {
         return User.builder()
             .id(createDto.getId())
             .login(createDto.getLogin())

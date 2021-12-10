@@ -1,5 +1,6 @@
 package ru.zhendozzz.autoprofi.autoprofi.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -25,6 +26,11 @@ public class StudentService {
             return byId.get();
         }
         throw new EntityNotFoundException("Student is not found by id");
+    }
+
+    public List<Student> findByAll() {
+        List<Student> all = studentDao.findAll();
+        return all;
     }
 
     public void delete(Long id) {

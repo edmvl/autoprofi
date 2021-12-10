@@ -6,4 +6,5 @@ import ru.zhendozzz.autoprofi.autoprofi.entity.Student;
 
 @Repository
 public interface StudentDao extends JpaRepository<Student, Long> {
+    Student findByUserId(Long id);
 }

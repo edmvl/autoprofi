@@ -1,5 +1,7 @@
 package ru.zhendozzz.autoprofi.autoprofi.controllers;
 
+import java.util.List;
+
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,24 +24,29 @@ import ru.zhendozzz.autoprofi.autoprofi.service.StudentService;
 @Tag(name = "/api/v1/student", description = "контроллер для обучающихся")
 public class StudentController {
     private final StudentService studentService;
-    private final StudentMapper studentMapper;
 
-    public StudentController(StudentService studentService, StudentMapper projectMapper) {
+    public StudentController(StudentService studentService) {
         this.studentService = studentService;
-        this.studentMapper = projectMapper;
     }
 
     @Operation(summary = "Получение информации по обучающемуся")
     @GetMapping("/{id}")
     public ResponseEntity<StudentDto> get(@PathVariable Long id) {
         Student byId = studentService.findById(id);
-        return new ResponseEntity<>(studentMapper.createUserGetResponseDto(byId), HttpStatus.OK);
+        return new ResponseEntity<>(StudentMapper.createUserGetResponseDto(byId), HttpStatus.OK);
+    }
+
+    @Operation(summary = "Получение информации по обучающемуся")
+    @GetMapping("/all")
+    public ResponseEntity<List<StudentDto>> getAll() {
+        List<Student> byAll = studentService.findByAll();
+        return new ResponseEntity<>(StudentMapper.createUserListGetResponseDto(byAll), HttpStatus.OK);
     }
 
     @Operation(summary = "Добавление обучающегося")
     @PostMapping("/new")
     public ResponseEntity<Void> put(@RequestBody StudentDto createDto) {
-        studentService.create(studentMapper.createProjectEntity(createDto));
+        studentService.create(StudentMapper.createProjectEntity(createDto));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

@@ -1,12 +1,16 @@
 package ru.zhendozzz.autoprofi.autoprofi.mapper;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Component;
 import ru.zhendozzz.autoprofi.autoprofi.dto.ExamDto;
 import ru.zhendozzz.autoprofi.autoprofi.entity.Exam;
+import ru.zhendozzz.autoprofi.autoprofi.repository.projection.ExamInfo;
 
 @Component
 public class ExamMapper {
-    public ExamDto createUserGetResponseDto(Exam byId) {
+    public static ExamDto createExamGetResponseDto(Exam byId) {
         return ExamDto.builder()
             .id(byId.getId())
             .type(byId.getType())
@@ -17,7 +21,7 @@ public class ExamMapper {
             .build();
     }
 
-    public Exam createProjectEntity(ExamDto createDto) {
+    public static Exam createExamEntity(ExamDto createDto) {
         return Exam.builder()
             .id(createDto.getId())
             .type(createDto.getType())
@@ -27,4 +31,5 @@ public class ExamMapper {
             .instructorId(createDto.getInstructorId())
             .build();
     }
+
 }

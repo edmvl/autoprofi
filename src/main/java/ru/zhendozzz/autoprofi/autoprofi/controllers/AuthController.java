@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.zhendozzz.autoprofi.autoprofi.dto.AuthRequestDto;
+import ru.zhendozzz.autoprofi.autoprofi.entity.Student;
 import ru.zhendozzz.autoprofi.autoprofi.entity.User;
+import ru.zhendozzz.autoprofi.autoprofi.repository.StudentDao;
 import ru.zhendozzz.autoprofi.autoprofi.repository.UserDao;
 import ru.zhendozzz.autoprofi.autoprofi.security.JwtTokenProvider;
 
@@ -26,11 +28,13 @@ public class AuthController {
 
     private final AuthenticationManager authenticationManager;
     private final UserDao userDao;
+    private final StudentDao studentDao;
     private final JwtTokenProvider jwtTokenProvider;
 
-    public AuthController(AuthenticationManager authenticationManager, UserDao userDao, JwtTokenProvider jwtTokenProvider) {
+    public AuthController(AuthenticationManager authenticationManager, UserDao userDao, StudentDao studentDao, JwtTokenProvider jwtTokenProvider) {
         this.authenticationManager = authenticationManager;
         this.userDao = userDao;
+        this.studentDao = studentDao;
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
@@ -38,6 +42,7 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody AuthRequestDto req) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(req.getLogin(), req.getPassword()));
         User user = userDao.getByLogin(req.getLogin());
+        Student student = studentDao.findByUserId(user.getId());
         if (Objects.isNull(user)){
             throw new UsernameNotFoundException("User doesn't exists");
         }
@@ -45,6 +50,9 @@ public class AuthController {
         Map<Object, Object> response = new HashMap<>();
         response.put("login", req.getLogin());
         response.put("token", token);
+        response.put("userId", user.getId());
+        response.put("studentId", student.getId());
+        response.put("userRole", user.getRole());
         return ResponseEntity.ok(response);
     }
 

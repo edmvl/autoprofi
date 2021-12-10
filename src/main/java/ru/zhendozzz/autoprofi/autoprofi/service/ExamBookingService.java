@@ -1,13 +1,13 @@
 package ru.zhendozzz.autoprofi.autoprofi.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
-import ru.zhendozzz.autoprofi.autoprofi.entity.Exam;
 import ru.zhendozzz.autoprofi.autoprofi.entity.ExamBooking;
 import ru.zhendozzz.autoprofi.autoprofi.exceptions.EntityNotFoundException;
 import ru.zhendozzz.autoprofi.autoprofi.repository.ExamBookingDao;
-import ru.zhendozzz.autoprofi.autoprofi.repository.ExamDao;
+import ru.zhendozzz.autoprofi.autoprofi.repository.projection.ExamBookingInfo;
 
 @Service
 public class ExamBookingService {
@@ -28,5 +28,9 @@ public class ExamBookingService {
 
     public void create(ExamBooking examBooking) {
         examBookingDao.save(examBooking);
+    }
+
+    public List<ExamBookingInfo> findAll(Long userId) {
+        return examBookingDao.findMyBookings(userId);
     }
 }

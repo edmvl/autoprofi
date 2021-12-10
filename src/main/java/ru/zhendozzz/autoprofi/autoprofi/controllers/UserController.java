@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.zhendozzz.autoprofi.autoprofi.dto.UserDto;
-import ru.zhendozzz.autoprofi.autoprofi.mapper.UserMapper;
 import ru.zhendozzz.autoprofi.autoprofi.service.UserService;
 
 @RestController
@@ -18,17 +17,15 @@ import ru.zhendozzz.autoprofi.autoprofi.service.UserService;
 public class UserController {
 
     private final UserService userService;
-    private final UserMapper userMapper;
 
-    public UserController(UserService userService, UserMapper userMapper) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.userMapper = userMapper;
     }
 
     @Operation(summary = "Добавление пользователя")
     @PostMapping("/new")
-    public ResponseEntity<Void> put(@RequestBody UserDto createDto) {
-        userService.create(userMapper.createUserEntity(createDto));
+    public ResponseEntity<Void> add(@RequestBody UserDto createDto) {
+        userService.create(createDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

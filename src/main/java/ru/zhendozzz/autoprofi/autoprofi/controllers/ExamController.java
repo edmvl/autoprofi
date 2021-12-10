@@ -1,5 +1,7 @@
 package ru.zhendozzz.autoprofi.autoprofi.controllers;
 
+import java.util.List;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
@@ -12,10 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.zhendozzz.autoprofi.autoprofi.dto.ExamDto;
-import ru.zhendozzz.autoprofi.autoprofi.entity.Exam;
-import ru.zhendozzz.autoprofi.autoprofi.mapper.ExamMapper;
+import ru.zhendozzz.autoprofi.autoprofi.repository.projection.ExamInfo;
 import ru.zhendozzz.autoprofi.autoprofi.service.ExamService;
 
 
@@ -24,33 +26,37 @@ import ru.zhendozzz.autoprofi.autoprofi.service.ExamService;
 @Tag(name = "/api/v1/exam", description = "контроллер для экзамену")
 public class ExamController {
     private final ExamService examService;
-    private final ExamMapper examMapper;
 
-    public ExamController(ExamService examService, ExamMapper examMapper) {
+    public ExamController(ExamService examService) {
         this.examService = examService;
-        this.examMapper = examMapper;
     }
 
     @Operation(summary = "Получение информации по экзамену")
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyAuthority('exam:read')")
     public ResponseEntity<ExamDto> get(@PathVariable Long id) {
-        Exam byId = examService.findById(id);
-        return new ResponseEntity<>(examMapper.createUserGetResponseDto(byId), HttpStatus.OK);
+        return new ResponseEntity<>(examService.findById(id), HttpStatus.OK);
+    }
+
+    @Operation(summary = "Получение информации по всем экзаменам")
+    @GetMapping("/all")
+    @PreAuthorize("hasAnyAuthority('exam:read')")
+    public ResponseEntity<List<ExamInfo>> getAll(@RequestParam Long studentId) {
+        return new ResponseEntity<>(examService.findAll(studentId), HttpStatus.OK);
     }
 
     @Operation(summary = "Добавление экзамена")
     @PostMapping("/new")
     @PreAuthorize("hasAnyAuthority('exam:create')")
-    public ResponseEntity<Void> put(@RequestBody ExamDto createDto) {
-        examService.create(examMapper.createProjectEntity(createDto));
+    public ResponseEntity<Void> add(@RequestBody ExamDto createDto) {
+        examService.create(createDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @Operation(summary = "Обновление экзамена")
     @PutMapping("/update")
     @PreAuthorize("hasAnyAuthority('exam:write')")
-    public ResponseEntity<Void> post(@RequestBody ExamDto updateDto) {
+    public ResponseEntity<Void> update(@RequestBody ExamDto updateDto) {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
