@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.zhendozzz.autoprofi.autoprofi.dto.AuthRequestDto;
+import ru.zhendozzz.autoprofi.autoprofi.entity.Instructor;
 import ru.zhendozzz.autoprofi.autoprofi.entity.Student;
 import ru.zhendozzz.autoprofi.autoprofi.entity.User;
+import ru.zhendozzz.autoprofi.autoprofi.repository.InstructorDao;
 import ru.zhendozzz.autoprofi.autoprofi.repository.StudentDao;
 import ru.zhendozzz.autoprofi.autoprofi.repository.UserDao;
 import ru.zhendozzz.autoprofi.autoprofi.security.JwtTokenProvider;
@@ -29,12 +31,14 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final UserDao userDao;
     private final StudentDao studentDao;
+    private final InstructorDao instructorDao;
     private final JwtTokenProvider jwtTokenProvider;
 
-    public AuthController(AuthenticationManager authenticationManager, UserDao userDao, StudentDao studentDao, JwtTokenProvider jwtTokenProvider) {
+    public AuthController(AuthenticationManager authenticationManager, UserDao userDao, StudentDao studentDao, InstructorDao instructorDao, JwtTokenProvider jwtTokenProvider) {
         this.authenticationManager = authenticationManager;
         this.userDao = userDao;
         this.studentDao = studentDao;
+        this.instructorDao = instructorDao;
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
@@ -43,7 +47,8 @@ public class AuthController {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(req.getLogin(), req.getPassword()));
         User user = userDao.getByLogin(req.getLogin());
         Student student = studentDao.findByUserId(user.getId());
-        if (Objects.isNull(user)){
+        Instructor instructor = instructorDao.findByUserId(user.getId());
+        if (Objects.isNull(user)) {
             throw new UsernameNotFoundException("User doesn't exists");
         }
         String token = jwtTokenProvider.createToken(req.getLogin(), user.getRole().name());
@@ -51,7 +56,8 @@ public class AuthController {
         response.put("login", req.getLogin());
         response.put("token", token);
         response.put("userId", user.getId());
-        response.put("studentId", student.getId());
+        response.put("studentId", Objects.isNull(student) ? null : student.getId());
+        response.put("instructorId", Objects.isNull(instructor) ? null : instructor.getId());
         response.put("userRole", user.getRole());
         return ResponseEntity.ok(response);
     }

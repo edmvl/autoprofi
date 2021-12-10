@@ -6,4 +6,5 @@ import ru.zhendozzz.autoprofi.autoprofi.entity.Instructor;
 
 @Repository
 public interface InstructorDao extends JpaRepository<Instructor, Long> {
+    Instructor findByUserId(Long id);
 }
