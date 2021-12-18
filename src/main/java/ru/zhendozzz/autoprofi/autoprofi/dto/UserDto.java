@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.zhendozzz.autoprofi.autoprofi.entity.Role;
+import ru.zhendozzz.autoprofi.autoprofi.authorities.Role;
 
 @Data
 @Builder

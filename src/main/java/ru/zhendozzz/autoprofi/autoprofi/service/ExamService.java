@@ -1,5 +1,6 @@
 package ru.zhendozzz.autoprofi.autoprofi.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,7 +10,6 @@ import ru.zhendozzz.autoprofi.autoprofi.entity.Exam;
 import ru.zhendozzz.autoprofi.autoprofi.exceptions.EntityNotFoundException;
 import ru.zhendozzz.autoprofi.autoprofi.mapper.ExamMapper;
 import ru.zhendozzz.autoprofi.autoprofi.repository.ExamDao;
-import ru.zhendozzz.autoprofi.autoprofi.repository.projection.ExamInfo;
 
 @Service
 public class ExamService {
@@ -28,8 +28,9 @@ public class ExamService {
         throw new EntityNotFoundException("Exam is not found by id");
     }
 
-    public List<ExamInfo> findAll(Long myid) {
-        return examDao.findAllWithBookings(myid);
+    public List<ExamDto> findAll(Long myid) {
+        List<Exam> all = examDao.findAll();
+        return new ArrayList<>();
     }
 
     public void create(ExamDto exam) {

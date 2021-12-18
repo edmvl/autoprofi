@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -20,8 +21,8 @@ import ru.zhendozzz.autoprofi.autoprofi.mapper.StudentMapper;
 import ru.zhendozzz.autoprofi.autoprofi.service.StudentService;
 
 @RestController
-@RequestMapping("/api/v1/student")
-@Tag(name = "/api/v1/student", description = "контроллер для обучающихся")
+@RequestMapping("/api/v1/students")
+@Tag(name = "/api/v1/students", description = "контроллер для обучающихся")
 public class StudentController {
     private final StudentService studentService;
 
@@ -44,14 +45,14 @@ public class StudentController {
     }
 
     @Operation(summary = "Добавление обучающегося")
-    @PostMapping("/new")
+    @PostMapping("/")
     public ResponseEntity<Void> put(@RequestBody StudentDto createDto) {
         studentService.create(StudentMapper.createProjectEntity(createDto));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @Operation(summary = "Обновление обучающегося")
-    @PutMapping("/update")
+    @PatchMapping("/")
     public ResponseEntity<Void> post(@RequestBody StudentDto updateDto) {
         return new ResponseEntity<>(HttpStatus.OK);
     }

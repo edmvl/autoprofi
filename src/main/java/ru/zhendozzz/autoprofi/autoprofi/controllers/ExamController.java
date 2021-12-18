@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.zhendozzz.autoprofi.autoprofi.dto.ExamDto;
-import ru.zhendozzz.autoprofi.autoprofi.repository.projection.ExamInfo;
 import ru.zhendozzz.autoprofi.autoprofi.service.ExamService;
 
 
@@ -41,7 +40,7 @@ public class ExamController {
     @Operation(summary = "Получение информации по всем экзаменам")
     @GetMapping("/all")
     @PreAuthorize("hasAnyAuthority('exam:read')")
-    public ResponseEntity<List<ExamInfo>> getAll(@RequestParam Long studentId) {
+    public ResponseEntity<List<ExamDto>> getAll(@RequestParam Long studentId) {
         return new ResponseEntity<>(examService.findAll(studentId), HttpStatus.OK);
     }
 

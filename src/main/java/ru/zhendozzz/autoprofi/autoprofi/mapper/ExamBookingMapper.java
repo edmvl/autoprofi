@@ -11,16 +11,16 @@ public class ExamBookingMapper {
     public ExamBookingDto createUserGetResponseDto(ExamBooking byId) {
         return ExamBookingDto.builder()
             .id(byId.getId())
-            .examId(byId.getExamId())
-            .studentId(byId.getStudentId())
+            .examId(byId.getExam().getId())
+            .studentId(byId.getStudent().getId())
             .build();
     }
 
-    public ExamBooking createProjectEntity(ExamBookingDto createDto) {
+    public ExamBooking createExamBookingEntity(ExamBookingDto createDto) {
         return ExamBooking.builder()
             .id(createDto.getId())
-            .examId(createDto.getExamId())
-            .studentId(createDto.getStudentId())
+            //.exam(createDto.getExamId())
+            //.studentId(createDto.getStudentId())
             .build();
     }
 }

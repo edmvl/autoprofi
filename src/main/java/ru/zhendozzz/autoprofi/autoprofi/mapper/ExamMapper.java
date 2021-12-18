@@ -1,12 +1,9 @@
 package ru.zhendozzz.autoprofi.autoprofi.mapper;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.springframework.stereotype.Component;
 import ru.zhendozzz.autoprofi.autoprofi.dto.ExamDto;
 import ru.zhendozzz.autoprofi.autoprofi.entity.Exam;
-import ru.zhendozzz.autoprofi.autoprofi.repository.projection.ExamInfo;
+import ru.zhendozzz.autoprofi.autoprofi.entity.Instructor;
 
 @Component
 public class ExamMapper {
@@ -17,7 +14,7 @@ public class ExamMapper {
             .date(byId.getDate())
             .startTime(byId.getStartTime())
             .availableSlots(byId.getAvailableSlots())
-            .instructorId(byId.getInstructorId())
+            .instructorId(byId.getInstructor().getId())
             .build();
     }
 
@@ -28,7 +25,7 @@ public class ExamMapper {
             .date(createDto.getDate())
             .startTime(createDto.getStartTime())
             .availableSlots(createDto.getAvailableSlots())
-            .instructorId(createDto.getInstructorId())
+            //.instructor()
             .build();
     }
 

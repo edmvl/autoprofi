@@ -1,4 +1,4 @@
-package ru.zhendozzz.autoprofi.autoprofi.entity;
+package ru.zhendozzz.autoprofi.autoprofi.authorities;
 
 public enum Permission {
     EXAM_READ("exam:read"),

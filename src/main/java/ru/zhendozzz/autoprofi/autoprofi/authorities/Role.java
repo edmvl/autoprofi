@@ -1,4 +1,4 @@
-package ru.zhendozzz.autoprofi.autoprofi.entity;
+package ru.zhendozzz.autoprofi.autoprofi.authorities;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -7,7 +7,7 @@ import java.util.stream.Stream;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import static ru.zhendozzz.autoprofi.autoprofi.entity.Permission.*;
+import static ru.zhendozzz.autoprofi.autoprofi.authorities.Permission.*;
 
 public enum Role {
     USER(Stream.of(
