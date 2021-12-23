@@ -1,5 +1,7 @@
 package ru.zhendozzz.autoprofi.autoprofi.dto;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,5 +24,7 @@ public class ExamDto {
     private Integer availableSlots;
 
     private Long instructorId;
+
+    private List<StudentDto> enrollments;
 
 }

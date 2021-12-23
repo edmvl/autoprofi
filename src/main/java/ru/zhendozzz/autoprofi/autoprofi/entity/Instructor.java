@@ -42,6 +42,6 @@ public class Instructor {
     private List<Exam> exams = new ArrayList<>();
 
     @JoinColumn(name = "user_id")
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
     private User user;
 }

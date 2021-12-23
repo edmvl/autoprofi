@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.zhendozzz.autoprofi.autoprofi.dto.ExamBookingDto;
-import ru.zhendozzz.autoprofi.autoprofi.mapper.ExamBookingMapper;
 import ru.zhendozzz.autoprofi.autoprofi.service.ExamBookingService;
 
 @RestController
@@ -26,7 +25,7 @@ import ru.zhendozzz.autoprofi.autoprofi.service.ExamBookingService;
 public class ExamBookingController {
     private final ExamBookingService examBookingService;
 
-    public ExamBookingController(ExamBookingService examBookingService, ExamBookingMapper examBookingMapper) {
+    public ExamBookingController(ExamBookingService examBookingService) {
         this.examBookingService = examBookingService;
     }
 

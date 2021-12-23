@@ -6,7 +6,7 @@ import ru.zhendozzz.autoprofi.autoprofi.entity.Instructor;
 
 @Component
 public class InstructorMapper {
-    public InstructorDto createUserGetResponseDto(Instructor byId) {
+    public static InstructorDto createUserGetResponseDto(Instructor byId) {
         return InstructorDto.builder()
             .id(byId.getId())
             .firstName(byId.getFirstName())

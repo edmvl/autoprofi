@@ -1,5 +1,7 @@
 package ru.zhendozzz.autoprofi.autoprofi.mapper;
 
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Component;
 import ru.zhendozzz.autoprofi.autoprofi.dto.ExamDto;
 import ru.zhendozzz.autoprofi.autoprofi.entity.Exam;
@@ -15,17 +17,22 @@ public class ExamMapper {
             .startTime(byId.getStartTime())
             .availableSlots(byId.getAvailableSlots())
             .instructorId(byId.getInstructor().getId())
+            .enrollments(
+                byId.getEnrollments().stream()
+                    .map(StudentMapper::createUserGetResponseDto)
+                    .collect(Collectors.toList())
+            )
             .build();
     }
 
-    public static Exam createExamEntity(ExamDto createDto) {
+    public static Exam createExamEntity(ExamDto createDto, Instructor instructor) {
         return Exam.builder()
             .id(createDto.getId())
             .type(createDto.getType())
             .date(createDto.getDate())
             .startTime(createDto.getStartTime())
             .availableSlots(createDto.getAvailableSlots())
-            //.instructor()
+            .instructor(instructor)
             .build();
     }
 

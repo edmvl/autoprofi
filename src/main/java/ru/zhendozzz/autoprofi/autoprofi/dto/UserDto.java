@@ -1,5 +1,7 @@
 package ru.zhendozzz.autoprofi.autoprofi.dto;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,5 +21,4 @@ public class UserDto {
     private String password;
 
     private Role role;
-
 }

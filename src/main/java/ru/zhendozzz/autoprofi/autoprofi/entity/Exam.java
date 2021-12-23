@@ -1,7 +1,9 @@
 package ru.zhendozzz.autoprofi.autoprofi.entity;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -41,14 +43,14 @@ public class Exam {
     private Integer availableSlots;
 
     @JoinColumn(name = "instructor_id")
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Instructor instructor;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-        name = "exam_booking",
-        joinColumns = @JoinColumn(name = "student_id"),
-        inverseJoinColumns = @JoinColumn(name = "exam_id")
+        name = "student_exam",
+        joinColumns = @JoinColumn(name = "exam_id" , referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "student_id", referencedColumnName = "id")
     )
     private List<Student> enrollments = new ArrayList<>();
 
