@@ -37,7 +37,7 @@ public class ExamBookingController {
     }
 
     @Operation(summary = "Получение информации по всем бронированиям")
-    @GetMapping("/all")
+    @GetMapping("/")
     @PreAuthorize("hasAnyAuthority('exam:read')")
     public ResponseEntity<List<ExamBookingDto>> getAll(
         @RequestParam(required = false) Long studentId,

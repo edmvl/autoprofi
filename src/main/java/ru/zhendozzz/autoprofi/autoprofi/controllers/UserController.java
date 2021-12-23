@@ -23,7 +23,7 @@ public class UserController {
     }
 
     @Operation(summary = "Добавление пользователя")
-    @PostMapping("/new")
+    @PostMapping("/")
     public ResponseEntity<Void> add(@RequestBody UserDto createDto) {
         userService.create(createDto);
         return new ResponseEntity<>(HttpStatus.CREATED);

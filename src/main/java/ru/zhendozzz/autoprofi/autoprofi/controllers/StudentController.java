@@ -38,7 +38,7 @@ public class StudentController {
     }
 
     @Operation(summary = "Получение информации по обучающемуся")
-    @GetMapping("/all")
+    @GetMapping("/")
     public ResponseEntity<List<StudentDto>> getAll() {
         List<Student> byAll = studentService.findByAll();
         return new ResponseEntity<>(StudentMapper.createUserListGetResponseDto(byAll), HttpStatus.OK);

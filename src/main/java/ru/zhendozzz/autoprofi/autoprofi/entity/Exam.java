@@ -50,6 +50,6 @@ public class Exam {
         joinColumns = @JoinColumn(name = "student_id"),
         inverseJoinColumns = @JoinColumn(name = "exam_id")
     )
-    private List<Student> students = new ArrayList<>();
+    private List<Student> enrollments = new ArrayList<>();
 
 }

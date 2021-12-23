@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -21,8 +22,8 @@ import ru.zhendozzz.autoprofi.autoprofi.service.ExamService;
 
 
 @RestController
-@RequestMapping("/api/v1/exam")
-@Tag(name = "/api/v1/exam", description = "контроллер для экзамену")
+@RequestMapping("/api/v1/exams")
+@Tag(name = "/api/v1/exams", description = "контроллер для экзамену")
 public class ExamController {
     private final ExamService examService;
 
@@ -38,14 +39,14 @@ public class ExamController {
     }
 
     @Operation(summary = "Получение информации по всем экзаменам")
-    @GetMapping("/all")
+    @GetMapping("/")
     @PreAuthorize("hasAnyAuthority('exam:read')")
     public ResponseEntity<List<ExamDto>> getAll(@RequestParam Long studentId) {
         return new ResponseEntity<>(examService.findAll(studentId), HttpStatus.OK);
     }
 
     @Operation(summary = "Добавление экзамена")
-    @PostMapping("/new")
+    @PostMapping("/")
     @PreAuthorize("hasAnyAuthority('exam:create')")
     public ResponseEntity<Void> add(@RequestBody ExamDto createDto) {
         examService.create(createDto);
@@ -53,7 +54,7 @@ public class ExamController {
     }
 
     @Operation(summary = "Обновление экзамена")
-    @PutMapping("/update")
+    @PatchMapping("/")
     @PreAuthorize("hasAnyAuthority('exam:write')")
     public ResponseEntity<Void> update(@RequestBody ExamDto updateDto) {
         return new ResponseEntity<>(HttpStatus.OK);
